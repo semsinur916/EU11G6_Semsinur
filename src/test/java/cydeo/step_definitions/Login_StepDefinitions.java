@@ -1,47 +1,49 @@
 package cydeo.step_definitions;
 
-import io.cucumber.java.en.*;
+import cydeo.pages.LoginPage;
+import cydeo.utilities.ConfigurationReader;
+import cydeo.utilities.Driver;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class Login_StepDefinitions {
 
-    @When("user enters librarian username")
-    public void user_enters_librarian_username() {
-        System.out.println("User enters librarian username");
+    LoginPage loginPage = new LoginPage();
+    @Given("user go to the login page")
+    public void user_go_to_the_login_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
-    @When("user enters librarian password")
-    public void user_enters_librarian_password() {
-        System.out.println("User enters librarian password");
-    }
-    @Then("user should see the dashboard")
-    public void user_should_see_the_dashboard() {
-        System.out.println("User should see the dashboard");
-
+    @When("User enter hr username and password and click login")
+    public void user_enter_hr_username_and_password_and_click_login() {
+        loginPage.userName.sendKeys(ConfigurationReader.getProperty("hr.username"));
+        loginPage.Password.sendKeys(ConfigurationReader.getProperty("hr.password"));
+        loginPage.loginBtn.click();
     }
 
-    @When("user enters student username")
-    public void userEntersStudentUsername() {
-        System.out.println("User enters student username");
+    @When("User enter helpdesk username and password and click login")
+    public void user_enter_helpdesk_username_and_password_and_click_login() {
+        loginPage.userName.sendKeys(ConfigurationReader.getProperty("helpdesk.username"));
+        loginPage.Password.sendKeys(ConfigurationReader.getProperty("helpdesk.password"));
+        loginPage.loginBtn.click();
+    }
+    @When("User enter marketing username and password and click login")
+    public void user_enter_marketing_username_and_password_and_click_login() {
+        loginPage.userName.sendKeys(ConfigurationReader.getProperty("marketing.username"));
+        loginPage.Password.sendKeys(ConfigurationReader.getProperty("marketing.password"));
+        loginPage.loginBtn.click();
+    }
+    @Then("User should be able to login")
+    public void user_should_be_able_to_login() {
+        System.out.println("user should be able to login");
+        String expected = "Portal";
+        Assert.assertTrue( Driver.getDriver().getTitle().contains(expected));
     }
 
-    @And("user enters student password")
-    public void userEntersStudentPassword() {
-        System.out.println("User enters student password");
-    }
 
-    @When("user enters admin username")
-    public void userEntersAdminUsername() {
-        System.out.println("user enters admin username");
-    }
 
-    @And("user enters admin password")
-    public void userEntersAdminPassword() {
-        System.out.println("user enters admin password");
-    }
-
-    @Given("user is on the library login page")
-    public void userIsOnTheLibraryLoginPage() {
-        System.out.println("user is on the library login page");
-    }
 
 
 }

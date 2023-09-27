@@ -2,52 +2,39 @@ package cydeo.pages;
 
 import cydeo.utilities.ConfigurationReader;
 import cydeo.utilities.Driver;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.*;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 
 public class LoginPage {
-
-
-    // stale Element exception
-
     public LoginPage() {
-        PageFactory.initElements(Driver.getDriver(),this);
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(id = "inputEmail")
-    public WebElement userNameInput;
+    @FindBy(name = "USER_LOGIN")
+    public WebElement userName;
 
-    @FindBy(id = "inputPassword")
-    public WebElement passwordInput;
+    @FindBy(name = "USER_PASSWORD")
+    public WebElement Password;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(className = "login-btn")
     public WebElement loginBtn;
 
-    public void loginAsRole(String role){
-        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
-        String username = "";
-        String password = "";
-        switch (role.toLowerCase()) {
 
-            case "hr":
-                username = ConfigurationReader.getProperty("library.student.email");
-                password = ConfigurationReader.getProperty("library.student.password");
-                break;
 
-            case "helpDesk":
-                username = ConfigurationReader.getProperty("library.teacher.email");
-                password = ConfigurationReader.getProperty("library.teacher.password");
-                break;
-            case "marketing":
-                username = ConfigurationReader.getProperty("library.teacher.");
-                password = ConfigurationReader.getProperty("library.teacher.pas");
-                break;
-        }
-
-        userNameInput.sendKeys(username);
-        passwordInput.sendKeys(password);
+    /**
+     * This method will accept two arguments and login.
+     * @param username
+     * @param password
+     */
+    public void login(String username, String password){
+        userName.sendKeys(username);
+        Password.sendKeys(password);
         loginBtn.click();
     }
-
 }
+
+
+
+
